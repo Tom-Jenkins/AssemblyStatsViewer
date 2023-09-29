@@ -1,0 +1,40 @@
+// Import Bootstrap CSS
+// @import "~bootstrap/scss/bootstrap";
+
+// Import Bootstrap icons CSS
+@import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
+// Import Bootswatch theme CSS
+@import "./bootstrap.min.css";
+
+// Import Tabulator CSS
+@import  "../../node_modules/tabulator-tables/src/scss/themes/bootstrap/tabulator_bootstrap5.scss";
+
+// Custom CSS
+.hidden {
+    display: none;
+}
+textarea { 
+    font-size: 0.95rem;
+}
+.buttons-margin {
+    margin-bottom: 3px;
+    margin-right: 5px;
+}
+#show-results-button {
+    margin-right: 15px;
+}
+.warning-messages {
+    margin-right: 15px;
+}
+.table-highlight {
+    background: #ded6ea;
+}
+.spinner-border {
+    --bs-spinner-width: 1.2rem;
+    --bs-spinner-height: 1.2rem;
+    --bs-spinner-vertical-align: -.20em;
+    --bs-spinner-border-width: .10em;
+    --bs-spinner-animation-speed: .85s;
+    margin-left: 5px;
+}

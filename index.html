@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>AssemblyStatsViewer</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="./src/scss/main.scss">
+        <!-- JavaScript -->
+        <script defer type="module" src="./src/js/main.js"></script>
+    </head>
+    <body>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-md bg-primary py-2">
+            <div class="container-fluid" id="navbar-content">
+                <span class="">
+                    <img src="./src/img/DNA.svg" width="40px" height="40px">
+                    <span class="navbar-brand fs-4 text-white px-2 align-middle" href="#">Assembly Stats Viewer</span>
+                </span>
+                <span class="navbar-brand text-white align-middle float-end">
+                    <a class="text-light" href="https://github.com/Tom-Jenkins/AssemblyStatsViewer" target="_blank"><i class="bi bi-github px-3"></i></a>
+                    <a class="text-light" href="https://twitter.com/Tom__Jenkins" target="_blank"><i class="bi bi-twitter px-3"></i></a>
+
+                    <!-- INFORMATION MODAL ICON -->
+                    <a class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#infoModal"><i class="bi bi-info-circle px-3"></i></a>
+
+                    <!-- INFORMATION MODAL CONTENT -->
+                    <div class="modal fade text-primary" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fw-bold" id="infoModalLabel">About Assembly Stats Viewer</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-wrap">
+                                <p>
+                                    Assembly Stats Viewer is a web application designed to compare genome assembly stats from the NCBI <a href="https://www.ncbi.nlm.nih.gov/assembly" target="_blank">assembly</a> database. It works by fetching data via the NCBI Datasets v2 REST <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/rest-api/#auth" target="_blank">API</a>, and processing the result to render an interactive table presenting basic assembly stats (N50, number of contigs, total length, etc.) and, if available, a barchart of BUSCO completeness assessments. 
+                                </p>
+                                <p>
+                                    <strong>How to use:</strong>
+                                    <ul>
+                                        <li>Type one or more accession numbers (e.g. GCA_958450375) and/or taxon names (e.g. Homarus, Homarus gammarus, etc.) into the text box.</li>
+                                        <li>Users can submit multiple queries at once, separated by a new line.</li>
+                                        <li>Using higher taxonomic ranks will work (e.g. Crustacea) but only the first 20 results will be shown to optimise usability and performance. By default, data for accession numbers will be prioritised before fetching data for taxon IDs.</li>
+                                        <li>The table and barchart data can be copied or downloaded as required.</li>
+                                    </ul>  
+                                </p>
+                                <p>Please post any issues or feedback on the GitHub page.</p>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </span>
+            </div>
+        </nav>
+
+        <!-- MAIN APP -->
+        <div class="container-fluid py-2 px-4 mx-auto">
+            <h1 class="py-3">Compare NCBI Genome Assemblies</h1>
+            <!-- Search Boxes -->
+            <div style="margin-bottom: 20px;">
+                <div style="display: inline-flex;">
+                    <!-- Search by Accession -->
+                    <div>
+                        <p class="fs-5 fw-bold">Enter accession number(s)</p>
+                        <textarea id="accession-search-box" cols="40" rows="5" placeholder="E.g.&#10;GCA_958450375&#10;GCA_958450375.1&#10;GCF_018991925.1"></textarea>
+                    </div>
+                    <!-- Search by Taxon -->
+                    <div class="mx-4">
+                        <p class="fs-5 fw-bold">Enter taxon ID(s)</p>
+                        <textarea id="taxon-search-box" cols="40" rows="5" placeholder="E.g.&#10;Crustacea&#10;Homarus&#10;Homarus gammarus"></textarea>
+                    </div>
+                </div>
+                <br>
+                <p class="my-2">
+                    <button id="show-results-button" class="btn btn-secondary buttons-margin">Show Results</button>
+                    <span id="assembly-warning-message" class="hidden text-warning fw-bold warning-messages">No assembly(s) found in the NCBI database. Please enter a valid query and retry.</span>
+                    <span id="api-warning-message" class="hidden text-warning fw-bold warning-messages">Problem retrieving data from NCBI API. Please try again later.</span>
+                    <button id="clipboard-button" class="hidden btn btn-secondary buttons-margin">Copy Table</button>
+                    <button id="download-button" class="hidden btn btn-secondary buttons-margin">Download Table</button>
+                    <button id="highlight-button" class="hidden btn btn-secondary buttons-margin">Highlight Best Stat</button>
+                    <span id="top20-warning-message" class="hidden text-primary fw-bold mx-2">
+                        <i class="bi bi-exclamation-circle" style="margin-right: 10px;"></i>More than 20 assemblies found in the NCBI database. Showing the first 20.
+                    </span>
+                </p>
+            </div>
+            <!-- Table -->
+            <div id="assembly-stats-table" class="table-sm" style="width: 100%;"></div>
+            <!-- Barchart -->
+            <div id="busco-barchart" class="my-5" style="width: 100%; height: 600px;"></div>
+        </div>
+
+    </body>
+</html>
