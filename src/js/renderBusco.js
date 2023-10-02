@@ -51,7 +51,7 @@ export function renderBusco(stats) {
 
     // Combine into single array
     const buscoAll = [buscoSingleCopy, buscoDuplicated, buscoFragmented, buscoMissing];
-    // console.log(buscoAll);
+    console.log(buscoAll);
 
     // Create an echarts series object for each busco category
     // Format:
@@ -88,8 +88,9 @@ export function renderBusco(stats) {
 
     // Dynamically set height of echarts html container
     const buscoContainer = document.getElementById("busco-barchart");
-    buscoContainer.style.height = buscos.length < 9 ? "500px" : "800px";
-
+    const buscoHeight = buscos.length < 9 ? 500 : 800;
+    buscoContainer.style.height = `${buscoHeight}px`;
+    
     // Initiate echarts instance
     echartsPlot = echarts.init(buscoContainer);
     echartsPlot.resize();
@@ -133,23 +134,32 @@ export function renderBusco(stats) {
                 // console.log(params)
                 // console.log(params[0].dataIndex)
 
+                // Get busco count for lineage
+                const buscoCount = parseInt(params[0].data) + parseInt(params[1].data) + parseInt(params[2].data) + parseInt(params[3].data);
+
+                // Format busco assessment: e.g. XXX (X%)
+                const formatSingleCopy = `${params[0].data} (${(params[0].data / buscoCount *100).toFixed(1)}%)`;
+                const formatDuplicated = `${params[1].data} (${(params[1].data / buscoCount *100).toFixed(1)}%)`;
+                const formatFragmented = `${params[2].data} (${(params[2].data / buscoCount *100).toFixed(1)}%)`;
+                const formatMissing = `${params[3].data} (${(params[3].data / buscoCount *100).toFixed(1)}%)`;
+
                 tooltipContent += `
                     <span class="fw-bold fs-6 my-1">${params[0].name} (${speciesNames[params[0].dataIndex]})</span>
                     <p style="margin-top: 10px; margin-bottom: 0;">
                         <span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:${params[0].color}"></span>
-                        <span>${buscoCategories[0]}: <strong>${isNaN(params[0].data) ? "No Data" : params[0].data}</strong></span>
+                        <span>${buscoCategories[0]}: <strong>${isNaN(params[0].data) ? "No Data" : formatSingleCopy}</strong></span>
                     </p>
                     <p style="margin-top: 2px; margin-bottom: 0;">
                         <span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:${params[1].color}"></span>
-                        <span>${buscoCategories[1]}: <strong>${isNaN(params[1].data) ? "No Data" : params[1].data}</strong></span>
+                        <span>${buscoCategories[1]}: <strong>${isNaN(params[1].data) ? "No Data" : formatDuplicated}</strong></span>
                     </p>
                     <p style="margin-top: 2px; margin-bottom: 0;">
                         <span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:${params[2].color}"></span>
-                        <span>${buscoCategories[2]}: <strong>${isNaN(params[2].data) ? "No Data" : params[2].data}</strong></span>
+                        <span>${buscoCategories[2]}: <strong>${isNaN(params[2].data) ? "No Data" : formatFragmented}</strong></span>
                     </p>
                     <p style="margin-top: 2px; margin-bottom: 10px;">
                         <span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:${params[3].color}"></span>
-                        <span>${buscoCategories[3]}: <strong>${isNaN(params[3].data) ? "No Data" : params[3].data}</strong></span>
+                        <span>${buscoCategories[3]}: <strong>${isNaN(params[3].data) ? "No Data" : formatMissing}</strong></span>
                     </p>
                 `;
 
@@ -187,9 +197,9 @@ export function renderBusco(stats) {
                     type: "png",
                     name: "BUSCO",
                     title: "Save as PNG",
-                    pixelRatio: 15,
+                    pixelRatio: 10,
                 }
-            }
+            },
         },
 
     };
