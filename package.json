@@ -28,7 +28,6 @@
     "bootstrap-icons": "^1.11.1",
     "echarts": "^5.4.3",
     "lodash-es": "^4.17.21",
-    "tabulator-tables": "^5.5.2",
-    "xml2js": "^0.6.2"
+    "tabulator-tables": "^5.5.2"
   }
 }
