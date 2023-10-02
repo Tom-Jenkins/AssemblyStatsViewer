@@ -86,11 +86,13 @@ export function renderBusco(stats) {
     };
     // console.log(buscoSeries);
 
-    // Select element from DOM
-    const plotElement = document.getElementById("busco-barchart");
+    // Dynamically set height of echarts html container
+    const buscoContainer = document.getElementById("busco-barchart");
+    buscoContainer.style.height = buscos.length < 9 ? "500px" : "800px";
 
     // Initiate echarts instance
-    echartsPlot = echarts.init(plotElement);
+    echartsPlot = echarts.init(buscoContainer);
+    echartsPlot.resize();
 
     // Echarts stacked bar chart configuration options
     let option = {
@@ -194,11 +196,6 @@ export function renderBusco(stats) {
 
     // SERIES
     option.series = buscoSeries;
-
-    // Dynamically set height of echarts html container
-    const buscoContainer = document.getElementById("busco-barchart");
-    buscos.length < 9 ? buscoContainer.style.height = "500px" : buscoContainer.style.height = "800px";
-    echartsPlot.resize();    
 
     // Display the chart using the configuration options
     echartsPlot.setOption(option);
