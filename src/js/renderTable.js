@@ -24,18 +24,18 @@ export function renderTable(stats) {
         columns: [
             // {title:"Assembly ID", field:"assemblyName"},
             // {title: "#", field:"", formatter:"rownum"},
-            {title:"Accession", field:"accession"},
+            {title:"Accession", field:"accession", formatter: addAccessionHyperlinks},
             {title:"Species", field:"speciesName"},
             {title:"Level", field:"assemblyLevel"},
-            {title:"Contig N50", field:"contigN50", hozAlign:"right", formatter: formatNumberWithCommas},
-            {title:"Contig L50", field:"contigL50", hozAlign:"right", formatter: formatNumberWithCommas},
-            {title:"Contig Count", field:"contigCount", hozAlign:"right", formatter: formatNumberWithCommas},
-            {title:"Total Length", field:"totalLength", hozAlign:"right", formatter: formatNumberWithCommas},
-            {title:"GC %", field:"gc", hozAlign:"right"},
-            {title:"Coverage", field:"coverage", hozAlign:"right", formatter: formatNumberWithCommas},
-            {title:"Scaffold N50", field:"scaffoldN50", hozAlign:"right", formatter: formatNumberWithCommas},
-            {title:"Scaffold L50", field:"scaffoldL50", hozAlign:"right", formatter: formatNumberWithCommas},
-            {title:"Scaffold Count", field:"scaffoldCount", hozAlign:"right", formatter: formatNumberWithCommas},  
+            {title:"Contig N50", field:"contigN50", hozAlign:"right", formatter: formatNumberWithCommas, sorter:"number"},
+            {title:"Contig L50", field:"contigL50", hozAlign:"right", formatter: formatNumberWithCommas, sorter:"number"},
+            {title:"Contig Count", field:"contigCount", hozAlign:"right", formatter: formatNumberWithCommas, sorter:"number"},
+            {title:"Total Length", field:"totalLength", hozAlign:"right", formatter: formatNumberWithCommas, sorter:"number"},
+            {title:"GC %", field:"gc", hozAlign:"right", sorter:"number"},
+            {title:"Coverage", field:"coverage", hozAlign:"right", formatter: formatNumberWithCommas, sorter:"number"},
+            {title:"Scaffold N50", field:"scaffoldN50", hozAlign:"right", formatter: formatNumberWithCommas, sorter:"number"},
+            {title:"Scaffold L50", field:"scaffoldL50", hozAlign:"right", formatter: formatNumberWithCommas, sorter:"number"},
+            {title:"Scaffold Count", field:"scaffoldCount", hozAlign:"right", formatter: formatNumberWithCommas, sorter:"number"},  
         ],
         initialSort:[
             {column:"assemblyLevel", dir:"asc"},
@@ -98,7 +98,7 @@ export function highlightValue(cell) {
                 cell.getElement().classList.remove("table-highlight");
             }
         });
-    };  
+    };
 
     // Return the value of the cell
     return formatNumberWithCommas(cell);
@@ -108,9 +108,9 @@ export function highlightValue(cell) {
 // ------------------- //
 // Function: format larger numbers with commas
 // ------------------- //
-export function formatNumberWithCommas(cell) {
+function formatNumberWithCommas(cell) {
 
-    // Get column object and column heading of cell
+    // Get value and column heading of cell
     const value = cell.getValue();
     const columnHeading = cell.getField();
 
@@ -127,4 +127,18 @@ export function formatNumberWithCommas(cell) {
         // If not undefined, convert to a number then use toLocaleString() to format the number with commas
         return value !== undefined ? parseInt(value).toLocaleString() : "n/a";
     };
+};
+
+
+// ------------------- //
+// Function: add hyperlinks to accession numbers
+// ------------------- //
+function addAccessionHyperlinks(cell) {
+
+    // Get the cell value
+    let accession = cell.getValue();
+    // console.log(accession);
+
+    // Return a hyperlink for each cell
+    return `<a target="_blank" href="https://www.ncbi.nlm.nih.gov/datasets/genome/${accession}">${accession}</a>`;
 };
