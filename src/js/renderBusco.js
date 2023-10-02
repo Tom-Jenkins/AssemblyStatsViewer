@@ -51,7 +51,7 @@ export function renderBusco(stats) {
 
     // Combine into single array
     const buscoAll = [buscoSingleCopy, buscoDuplicated, buscoFragmented, buscoMissing];
-    console.log(buscoAll);
+    // console.log(buscoAll);
 
     // Create an echarts series object for each busco category
     // Format:
