@@ -1,6 +1,8 @@
 # Assembly Stats Viewer
 Assembly Stats Viewer is a web tool that allows users to compare genome assembly stats from the NCBI [assembly](https://www.ncbi.nlm.nih.gov/assembly) database. It works by fetching data via the NCBI Datasets v2 REST [API](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/rest-api/#auth), and processing the result to render an interactive table presenting basic assembly stats (N50, number of contigs, total length, etc.) and, if available, a barchart of BUSCO completeness assessments.
 
+Click <a href="https://assemblystatsviewer.netlify.app/" target="_blank">here</a> to launch the web application.
+
 ![image](https://github.com/Tom-Jenkins/AssemblyStatsViewer/assets/20986547/c4475ab3-e0b2-43f2-98d4-b2d133f5957b)
 
 **How to use:**
