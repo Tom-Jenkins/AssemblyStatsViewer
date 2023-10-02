@@ -39,13 +39,13 @@
                                 <p>
                                     <strong>How to use:</strong>
                                     <ul>
-                                        <li>Type one or more accession numbers (e.g. GCA_958450375) and/or taxon names (e.g. Homarus, Homarus gammarus, etc.) into the text box.</li>
+                                        <li>Type one or more accession numbers (e.g. GCF_018350175) and/or taxon names (e.g. cat, Felis, Felis catus, etc.) into the text box.</li>
                                         <li>Users can submit multiple queries at once, separated by a new line.</li>
-                                        <li>Using higher taxonomic ranks will work (e.g. Crustacea) but only the first 20 results will be shown to optimise usability and performance. By default, data for accession numbers will be prioritised before fetching data for taxon IDs.</li>
+                                        <li>Using higher taxonomic ranks will work (e.g. Mammalia) but only the first 20 results will be shown to optimise usability and performance. By default, data for accession numbers will be prioritised before fetching data for taxon IDs.</li>
                                         <li>The table and barchart data can be copied or downloaded as required.</li>
                                     </ul>  
                                 </p>
-                                <p>Please post any issues or feedback on the GitHub page.</p>
+                                <p>Please post any issues or feedback on the <a href="https://github.com/Tom-Jenkins/AssemblyStatsViewer" target="_blank">GitHub</a> page.</p>
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -66,19 +66,18 @@
                     <!-- Search by Accession -->
                     <div>
                         <p class="fs-5 fw-bold">Enter accession number(s)</p>
-                        <textarea id="accession-search-box" cols="40" rows="5" placeholder="E.g.&#10;GCA_958450375&#10;GCA_958450375.1&#10;GCF_018991925.1"></textarea>
+                        <textarea id="accession-search-box" cols="40" rows="5" placeholder="GCF_018350175&#10;GCF_018350175.1&#10;GCA_016509815&#10;GCA_028533295.1"></textarea>
                     </div>
                     <!-- Search by Taxon -->
                     <div class="mx-4">
                         <p class="fs-5 fw-bold">Enter taxon ID(s)</p>
-                        <textarea id="taxon-search-box" cols="40" rows="5" placeholder="E.g.&#10;Crustacea&#10;Homarus&#10;Homarus gammarus"></textarea>
+                        <textarea id="taxon-search-box" cols="40" rows="5" placeholder="Cat&#10;Felis&#10;Felis catus&#10;Felidae"></textarea>
                     </div>
                 </div>
                 <br>
                 <p class="my-2">
                     <button id="show-results-button" class="btn btn-secondary buttons-margin">Show Results</button>
-                    <span id="assembly-warning-message" class="hidden text-warning fw-bold warning-messages">No assembly(s) found in the NCBI database. Please enter a valid query and retry.</span>
-                    <span id="api-warning-message" class="hidden text-warning fw-bold warning-messages">Problem retrieving data from NCBI API. Please try again later.</span>
+                    <span id="warning-message" class="text-warning fw-bold warning-messages"></span>
                     <button id="clipboard-button" class="hidden btn btn-secondary buttons-margin">Copy Table</button>
                     <button id="download-button" class="hidden btn btn-secondary buttons-margin">Download Table</button>
                     <button id="highlight-button" class="hidden btn btn-secondary buttons-margin">Highlight Best Stat</button>
@@ -90,7 +89,7 @@
             <!-- Table -->
             <div id="assembly-stats-table" class="table-sm" style="width: 100%;"></div>
             <!-- Barchart -->
-            <div id="busco-barchart" class="my-5" style="width: 100%; height: 600px;"></div>
+            <div id="busco-barchart" class="my-5" style="width: 100%;"></div>
         </div>
 
     </body>
