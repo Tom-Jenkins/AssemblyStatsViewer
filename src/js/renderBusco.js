@@ -37,13 +37,11 @@ export function renderBusco(stats) {
     const lineage = buscos.map(id => id.busco_lineage);
     const version = buscos.map(id => id.busco_ver);
     const count = buscos.map(id => id.total_count);
-    console.log(count);
+    // console.log(count);
 
     // Get total number of BUSCOs across all busco objects
     const buscoTotal = Math.max(...buscos.map(x => x.total_count).filter(x => parseInt(x))); // extract then filter only numbers
-    console.log(buscoTotal);
-
-    // ERROR IS HERE – TOTAL COUNT IS SPECIFIC TO EACH ASSEMMBLY!!!!
+    // console.log(buscoTotal);
     
     // Array containing BUSCO values for each category
     const buscoSingleCopy = buscos.map(x => prop2counts(x.total_count, x.single_copy));
@@ -53,7 +51,7 @@ export function renderBusco(stats) {
 
     // Combine into single array
     const buscoAll = [buscoSingleCopy, buscoDuplicated, buscoFragmented, buscoMissing];
-    console.log(buscoAll);
+    // console.log(buscoAll);
 
     // Create an echarts series object for each busco category
     // Format:
@@ -200,9 +198,9 @@ export function renderBusco(stats) {
     // Dynamically set height of echarts html container
     const buscoContainer = document.getElementById("busco-barchart");
     buscos.length < 9 ? buscoContainer.style.height = "500px" : buscoContainer.style.height = "800px";
-    echartsPlot.resize();
+    echartsPlot.resize();    
 
     // Display the chart using the configuration options
-    echartsPlot.setOption(option);    
+    echartsPlot.setOption(option);
 };
 
