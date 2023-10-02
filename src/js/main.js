@@ -7,7 +7,7 @@
 // Import JS from modules
 import * as bootstrap from "bootstrap";
 import { formatUserInput, processDataFromAPI } from "./processDataFromAPI";
-import { renderTable, assemblyTable, highlightValue, formatNumberWithCommas } from "./renderTable";
+import { renderTable, assemblyTable, highlightValue } from "./renderTable";
 import { renderBusco, echartsPlot } from "./renderBusco";
 
 // ------------------- //
@@ -18,7 +18,8 @@ import { renderBusco, echartsPlot } from "./renderBusco";
 // https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/rest-api/#get-/genome/accession/-accessions-/dataset_report
 const api = "dataset_report";
 const version = "v2alpha";
-const filters = "filters.reference_only=true&filters.assembly_source=all&filters.has_annotation=false&filters.exclude_paired_reports=true&filters.exclude_atypical=false&filters.assembly_version=current&filters.assembly_level=chromosome&filters.assembly_level=contig&filters.assembly_level=scaffold&filters.assembly_level=complete_genome";
+const filters = "filters.reference_only=false&filters.assembly_source=all&filters.has_annotation=false&filters.exclude_paired_reports=true&filters.exclude_atypical=false&filters.assembly_version=current&filters.assembly_level=chromosome&filters.assembly_level=contig&filters.assembly_level=scaffold&filters.assembly_level=complete_genome";
+const apiWarning = "Problem retrieving data from NCBI API. Please try again later.";
 
 // Fetch assembly stats from NCBI API using esearch and esummary
 async function fetchAssemblyStats() {
@@ -40,8 +41,7 @@ async function fetchAssemblyStats() {
         `);
 
         // Hide any warning messages on UI
-        document.getElementById("assembly-warning-message").classList.add("hidden");
-        document.getElementById("api-warning-message").classList.add("hidden");
+        document.getElementById("warning-message").textContent = "";
         document.getElementById("top20-warning-message").classList.add("hidden");
 
         // Hide clipboard, download and highlight buttons
@@ -61,9 +61,14 @@ async function fetchAssemblyStats() {
             const accessionUrl = `https://api.ncbi.nlm.nih.gov/datasets/${version}/genome/accession/${accessionQuery}/${api}?${filters}&page_size=${returnMax}`;
             accessionResponse = await fetch(accessionUrl);
             // console.log(accessionResponse);
-            if (!accessionResponse.ok) throw new Error(`Error in API response: ${accessionResponse.statusText}`);
+            // Throw error if there is a problem getting data from the API
+            if (!accessionResponse.ok) throw apiWarning;
             accessionResults = await accessionResponse.json();
             // console.log(accessionResults);
+
+            // If user enters incorrect query then object will be empty and a warning message will be activated
+            const queryWarning = "No assembly(s) found in the NCBI database (invalid accession). Please enter a valid query and retry.";
+            if (Object.keys(accessionResults).length === 0) throw queryWarning;
 
             // Get the total number of reports found using accession query
             numAccessionReports = accessionResults.total_count;
@@ -86,9 +91,14 @@ async function fetchAssemblyStats() {
             const taxonUrl = `https://api.ncbi.nlm.nih.gov/datasets/${version}/genome/taxon/${taxonQuery}/${api}?${filters}&page_size=${numTaxonReportsToFetch}`;
             taxonResponse = await fetch(taxonUrl);
             // console.log(taxonResponse);
-            if (!taxonResponse.ok) throw new Error(`Error in API response: ${taxonResponse.statusText}`);
+            // Throw error if there is a problem getting data from the API
+            if (!taxonResponse.ok) throw apiWarning;
             taxonResults = await taxonResponse.json();
             // console.log(taxonResults);
+
+            // If user enters incorrect query then object will be empty and a warning message will be activated
+            const queryWarning = "No assembly(s) found in the NCBI database (invalid taxon). Please enter a valid query and retry.";
+            if (Object.keys(taxonResults).length === 0) throw queryWarning;
 
             // Get the total number of reports found using taxon query
             numTaxonReports = taxonResults.total_count;            
@@ -131,13 +141,13 @@ async function fetchAssemblyStats() {
         renderBusco(assemblyStats);
 
     } catch(err) {
-        console.error(err);
+        // console.error(err);
 
         // Deactivate loading spinner
         document.getElementById("spinner").remove();
 
-        // Activate API warning message on UI
-        document.getElementById("api-warning-message").classList.remove("hidden");
+        // Activate warning message on UI
+        document.getElementById("warning-message").textContent = err;
     }
 };
 
