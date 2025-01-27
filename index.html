@@ -58,38 +58,46 @@
         </nav>
 
         <!-- MAIN APP -->
-        <div class="container-fluid py-2 px-4 mx-auto">
-            <h1 class="py-3">Compare NCBI Genome Assemblies</h1>
+        <div class="container-fluid my-4 mx-auto">
+
+            <!-- Title -->
+            <h1>Compare NCBI Genome Assemblies</h1>
+
             <!-- Search Boxes -->
-            <div style="margin-bottom: 20px;">
-                <div style="display: inline-flex;">
-                    <!-- Search by Accession -->
-                    <div>
-                        <p class="fs-5 fw-bold">Enter accession number(s)</p>
-                        <textarea id="accession-search-box" cols="40" rows="5" placeholder="GCF_018350175&#10;GCF_018350175.1&#10;GCA_016509815&#10;GCA_028533295.1"></textarea>
-                    </div>
-                    <!-- Search by Taxon -->
-                    <div class="mx-4">
-                        <p class="fs-5 fw-bold">Enter taxon ID(s)</p>
-                        <textarea id="taxon-search-box" cols="40" rows="5" placeholder="Cat&#10;Felis&#10;Felis catus&#10;Felidae"></textarea>
-                    </div>
+            <div class="row my-4">
+
+                <!-- Search by Accession -->
+                <div class="col-auto">
+                    <p class="fs-5 fw-bold">Enter accession number(s)</p>
+                    <textarea id="accession-search-box" cols="40" rows="5" placeholder="GCF_018350175&#10;GCF_018350175.1&#10;GCA_016509815&#10;GCA_028533295.1"></textarea>
                 </div>
-                <br>
-                <p class="my-2">
-                    <button id="show-results-button" class="btn btn-secondary buttons-margin">Show Results</button>
-                    <span id="warning-message" class="text-warning fw-bold warning-messages"></span>
-                    <button id="clipboard-button" class="hidden btn btn-secondary buttons-margin">Copy Table</button>
-                    <button id="download-button" class="hidden btn btn-secondary buttons-margin">Download Table</button>
-                    <button id="highlight-button" class="hidden btn btn-secondary buttons-margin">Highlight Best Stat</button>
-                    <span id="top20-warning-message" class="hidden text-primary fw-bold mx-2">
-                        <i class="bi bi-exclamation-circle" style="margin-right: 10px;"></i>More than 20 assemblies found in the NCBI database. Showing the first 20.
-                    </span>
-                </p>
+
+                <!-- Search by Taxon -->
+                <div class="col-auto">
+                    <p class="fs-5 fw-bold">Enter taxon ID(s)</p>
+                    <textarea id="taxon-search-box" cols="40" rows="5" placeholder="Cat&#10;Felis&#10;Felis catus&#10;Felidae"></textarea>
+                </div>
+
+                <div class="mt-3">
+                    <p>
+                        <button id="show-results-button" class="btn btn-secondary buttons-margin">Show Results</button>
+                        <span id="warning-message" class="text-warning fw-bold warning-messages"></span>
+                        <button id="clipboard-button" class="hidden btn btn-secondary buttons-margin">Copy Table</button>
+                        <button id="download-button" class="hidden btn btn-secondary buttons-margin">Download Table</button>
+                        <button id="highlight-button" class="hidden btn btn-secondary buttons-margin">Highlight Best Stat</button>
+                        <span id="top20-warning-message" class="hidden text-primary fw-bold mx-2">
+                            <i class="bi bi-exclamation-circle" style="margin-right: 10px;"></i>More than 20 assemblies found in the NCBI database. Showing the first 20.
+                        </span>
+                    </p>
+                </div>
             </div>
+
             <!-- Table -->
             <div id="assembly-stats-table" class="table-sm" style="width: 100%;"></div>
+
             <!-- Barchart -->
-            <div id="busco-barchart" class="my-5" style="width: 100%;"></div>
+            <div id="busco-barchart" class="mt-5" style="width: 100%;"></div>
+
         </div>
 
     </body>
