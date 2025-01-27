@@ -14,22 +14,28 @@
 .hidden {
     display: none;
 }
+
 textarea { 
     font-size: 0.95rem;
 }
+
 .buttons-margin {
     margin-bottom: 3px;
     margin-right: 5px;
 }
+
 #show-results-button {
     margin-right: 15px;
 }
+
 .warning-messages {
     margin-right: 15px;
 }
+
 .table-highlight {
     background: #ded6ea;
 }
+
 .spinner-border {
     --bs-spinner-width: 1.2rem;
     --bs-spinner-height: 1.2rem;
@@ -37,4 +43,8 @@ textarea {
     --bs-spinner-border-width: .10em;
     --bs-spinner-animation-speed: .85s;
     margin-left: 5px;
+}
+
+.modal-content {
+    width: auto !important;
 }
