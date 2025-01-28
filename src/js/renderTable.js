@@ -25,7 +25,7 @@ export function renderTable(stats) {
             // {title:"Assembly ID", field:"assemblyName"},
             // {title: "#", field:"", formatter:"rownum"},
             {title:"Accession", field:"accession", formatter: addAccessionHyperlinks, resizable: false},
-            {title:"Species", field:"speciesName", resizable: false},
+            {title:"Species", field:"speciesName", resizable: false, formatter: cell => `<em>${cell.getValue()}</em>`},
             {title:"Level", field:"assemblyLevel", resizable: false},
             {title:"Total Length", field:"totalLength", hozAlign:"right", formatter: formatNumberWithCommas, sorter:"number", resizable: false},
             {title:"GC %", field:"gc", hozAlign:"right", sorter:"number", resizable: false},
