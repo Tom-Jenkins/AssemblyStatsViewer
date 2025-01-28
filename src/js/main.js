@@ -141,14 +141,12 @@ async function fetchAssemblyStats() {
         renderBusco(assemblyStats);
 
     } catch(err) {
-        // console.error(err);
+        console.error(err);
 
         // Deactivate loading spinner
         document.getElementById("spinner").remove();
 
         // Activate warning message on UI
-        document.getElementById("warning-message").textContent = err;
-    } finally {
         document.getElementById("warning-message").textContent = "No data retrieved. Please check internet connection.";
     }
 };
