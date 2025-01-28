@@ -148,6 +148,8 @@ async function fetchAssemblyStats() {
 
         // Activate warning message on UI
         document.getElementById("warning-message").textContent = err;
+    } finally {
+        document.getElementById("warning-message").textContent = "No data retrieved. Please check internet connection.";
     }
 };
 
