@@ -102,9 +102,10 @@ export function renderBusco(stats) {
     let option = {
 
         // TITLE
-        title: {
-            text: "BUSCO",
-        },
+        // title: {
+        //     text: "BUSCO",
+        //     top: "20",
+        // },
 
         // XAXIS
         xAxis: {
@@ -117,7 +118,7 @@ export function renderBusco(stats) {
         yAxis: {
             type: "category",
             data: assemblyAccessions,
-            // max: buscoTotal,
+            name: "BUSCO Completeness",
         },
 
         // COLOURS
@@ -181,7 +182,7 @@ export function renderBusco(stats) {
 
         // GRID
         grid: {
-            // top: "20%",
+            // top: "",
             // bottom: "",
             left: "15%",
             // right: "",
