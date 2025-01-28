@@ -48,3 +48,14 @@ textarea {
 .modal-content {
     width: auto !important;
 }
+
+.DNA__link {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.DNA__link--text {
+    &:hover {
+        color: var(--bs-gray-400) !important;
+    }
+}
