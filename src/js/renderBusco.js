@@ -17,7 +17,7 @@ function prop2counts(total, proportion) {
 };
 
 // Array of busco categories
-const buscoCategories = ["Complete and single-copy (CS)", "Complete and duplicated (CD)", "Fragmented (F)", "Missing (M)"];
+const buscoCategories = ["Complete", "Duplicated", "Fragmented", "Missing"];
 
 // ------------------- //
 // Main function: input is an assembly stats object
@@ -91,17 +91,21 @@ export function renderBusco(stats) {
     const buscoHeight = buscos.length < 9 ? 500 : 800;
     buscoContainer.style.height = `${buscoHeight}px`;
     
-    // Initiate echarts instance
-    echartsPlot = echarts.init(buscoContainer);
-    echartsPlot.resize();
+    // Check if echartsPlot is already initialized
+    if (!echartsPlot) {
+        // Initiate echarts instance
+        echartsPlot = echarts.init(buscoContainer);
+        echartsPlot.resize();
+    };  
 
     // Echarts stacked bar chart configuration options
     let option = {
 
         // TITLE
-        title: {
-            text: "BUSCO",
-        },
+        // title: {
+        //     text: "BUSCO",
+        //     top: "20",
+        // },
 
         // XAXIS
         xAxis: {
@@ -114,7 +118,7 @@ export function renderBusco(stats) {
         yAxis: {
             type: "category",
             data: assemblyAccessions,
-            // max: buscoTotal,
+            name: "BUSCO Completeness",
         },
 
         // COLOURS
@@ -144,7 +148,7 @@ export function renderBusco(stats) {
                 const formatMissing = `${params[3].data} (${(params[3].data / buscoCount *100).toFixed(1)}%)`;
 
                 tooltipContent += `
-                    <span class="fw-bold fs-6 my-1">${params[0].name} (${speciesNames[params[0].dataIndex]})</span>
+                    <span class="fw-bold fs-6 my-1">${params[0].name} (<em>${speciesNames[params[0].dataIndex]}</em>)</span>
                     <p style="margin-top: 10px; margin-bottom: 0;">
                         <span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:${params[0].color}"></span>
                         <span>${buscoCategories[0]}: <strong>${isNaN(params[0].data) ? "No Data" : formatSingleCopy}</strong></span>
@@ -178,7 +182,7 @@ export function renderBusco(stats) {
 
         // GRID
         grid: {
-            // top: "20%",
+            // top: "",
             // bottom: "",
             left: "15%",
             // right: "",
@@ -192,7 +196,10 @@ export function renderBusco(stats) {
             // top: "10%",
             right: "1%",               
             feature: {
-                dataView: {},
+                dataView: {
+                    readOnly: true,
+                    buttonColor: "var(--bs-primary)",
+                },
                 saveAsImage: {
                     type: "png",
                     name: "BUSCO",

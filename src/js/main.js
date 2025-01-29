@@ -40,6 +40,9 @@ async function fetchAssemblyStats() {
             <div id="spinner" class="spinner-border text-primary" role="status"></div>
         `);
 
+        // Disable show-results-button so it can't be clicked again
+        document.getElementById("show-results-button").classList.add("disabled");
+
         // Hide any warning messages on UI
         document.getElementById("warning-message").textContent = "";
         document.getElementById("top20-warning-message").classList.add("hidden");
@@ -130,6 +133,9 @@ async function fetchAssemblyStats() {
         // Deactivate loading spinner
         document.getElementById("spinner").remove();
 
+        // Remove disabled class from show-results-button so it can be clicked again
+        document.getElementById("show-results-button").classList.remove("disabled");
+
         // Activate warning message on UI if more than 20 reports are found
         if ((numAccessionReports+numTaxonReports) > 20) document.getElementById("top20-warning-message").classList.remove("hidden");
 
@@ -141,13 +147,13 @@ async function fetchAssemblyStats() {
         renderBusco(assemblyStats);
 
     } catch(err) {
-        // console.error(err);
+        console.error(err);
 
         // Deactivate loading spinner
         document.getElementById("spinner").remove();
 
         // Activate warning message on UI
-        document.getElementById("warning-message").textContent = err;
+        document.getElementById("warning-message").textContent = "No data retrieved. Please check internet connection.";
     }
 };
 

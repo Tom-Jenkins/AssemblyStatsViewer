@@ -11,7 +11,7 @@
   "author": "Tom Jenkins",
   "license": "MIT",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.9.3",
+    "@parcel/transformer-sass": "^2.13.3",
     "@types/bootstrap": "^5.2.7",
     "buffer": "^6.0.3",
     "events": "^3.3.0",
