@@ -70,7 +70,7 @@ async function fetchAssemblyStats() {
             // console.log(accessionResults);
 
             // If user enters incorrect query then object will be empty and a warning message will be activated
-            const queryWarning = "No assembly(s) found in the NCBI database (invalid accession). Please enter a valid query and retry.";
+            const queryWarning = "No assembly(s) found in the NCBI database for accession query. Please enter a valid query and retry.";
             if (Object.keys(accessionResults).length === 0) throw queryWarning;
 
             // Get the total number of reports found using accession query
@@ -100,7 +100,7 @@ async function fetchAssemblyStats() {
             // console.log(taxonResults);
 
             // If user enters incorrect query then object will be empty and a warning message will be activated
-            const queryWarning = "No assembly(s) found in the NCBI database (invalid taxon). Please enter a valid query and retry.";
+            const queryWarning = "No assembly(s) found in the NCBI database for taxon query. Please enter a valid query and retry.";
             if (Object.keys(taxonResults).length === 0) throw queryWarning;
 
             // Get the total number of reports found using taxon query
@@ -147,7 +147,7 @@ async function fetchAssemblyStats() {
         renderBusco(assemblyStats);
 
     } catch(err) {
-        console.error(err);
+        // console.error(err);
 
         // Deactivate loading spinner
         document.getElementById("spinner").remove();
@@ -156,7 +156,7 @@ async function fetchAssemblyStats() {
         document.getElementById("show-results-button").classList.remove("disabled");
 
         // Activate warning message on UI
-        document.getElementById("warning-message").textContent = "No data retrieved. Please check internet connection.";
+        document.getElementById("warning-message").textContent = err;
     }
 };
 
