@@ -152,6 +152,9 @@ async function fetchAssemblyStats() {
         // Deactivate loading spinner
         document.getElementById("spinner").remove();
 
+        // Remove disabled class from show-results-button so it can be clicked again
+        document.getElementById("show-results-button").classList.remove("disabled");
+
         // Activate warning message on UI
         document.getElementById("warning-message").textContent = "No data retrieved. Please check internet connection.";
     }
