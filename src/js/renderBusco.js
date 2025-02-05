@@ -131,6 +131,13 @@ export function renderBusco(stats) {
         // TOOLTIP
         tooltip: {
             trigger: "axis",
+            position: function (point, params, dom, rect, size) {
+                var tooltipWidth = size.contentSize[0]; // Tooltip width
+                var tooltipHeight = size.contentSize[1]; // Tooltip height
+                var x = point[0] - tooltipWidth / 2; // Center horizontally
+                var y = point[1] - tooltipHeight - 10; // Just above the mouse point with a small gap
+                return [x, y];
+            },
             axisPointer: {
               // Use axis to trigger tooltip
               type: "shadow",
@@ -198,7 +205,7 @@ export function renderBusco(stats) {
             itemSize: 20,
             orient: "vertical",
             top: 60,
-            right: 1,               
+            right: "1%",               
             feature: {
                 dataView: {
                     readOnly: true,
