@@ -231,10 +231,5 @@ highlightButton.addEventListener("click", (e) => {
 
 // Resize ECharts plot when screen size changes
 window.onresize = function() {
-
-    // Select element from DOM
-    const buscoBarchart = document.getElementById("busco-barchart");
-
-    // Execute only when a busco barchart has been rendered
-    if (buscoBarchart.textContent !== "") echartsPlot.resize();
+    if(echartsPlot) echartsPlot.resize();
 };

@@ -119,6 +119,10 @@ export function renderBusco(stats) {
             type: "category",
             data: assemblyAccessions,
             name: "BUSCO Completeness",
+            nameTextStyle: {
+                fontSize: 15,
+                align: "left",
+            }
         },
 
         // COLOURS
@@ -182,9 +186,9 @@ export function renderBusco(stats) {
 
         // GRID
         grid: {
-            // top: "",
+            top: 90,
             // bottom: "",
-            left: "15%",
+            left: "10%",
             // right: "",
         },
 
@@ -193,8 +197,8 @@ export function renderBusco(stats) {
             show: true,
             itemSize: 20,
             orient: "vertical",
-            // top: "10%",
-            right: "1%",               
+            top: 60,
+            right: 1,               
             feature: {
                 dataView: {
                     readOnly: true,
